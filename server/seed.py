@@ -75,6 +75,6 @@ if __name__ == '__main__':
                 )
                 db.session.add(prescription)  # Add prescription to the session
 
-        # Commit the changes to the database
+        
         db.session.commit()
         
