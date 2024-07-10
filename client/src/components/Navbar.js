@@ -30,6 +30,9 @@ function Navbar() {
         <li>
           <NavLink to="/login" activeClassName='active'>Login</NavLink>
         </li>
+        <li>
+          <NavLink to="/signup" activeClassName='active'>SignUp</NavLink>
+        </li>
       </ul>
     </nav>
   );
