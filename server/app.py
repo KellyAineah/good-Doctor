@@ -1,23 +1,201 @@
 #!/usr/bin/env python3
+import os
+from flask import Flask, request, jsonify, make_response
+from flask_migrate import Migrate
+from flask_restful import Api, Resource
+from config import db
+from models import User, Doctor, Appointment, Prescription
 
-# Standard library imports
+# Setup Flask app
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Remote library imports
-from flask import request
-from flask_restful import Resource
+db.init_app(app)
+migrate = Migrate(app, db)
+api = Api(app)
 
-# Local imports
-from config import app, db, api
-# Add your model imports
+# Define Resources and their routes
 
+class UserResource(Resource):
+    def get(self, user_id=None):
+        if user_id:
+            user = User.query.get(user_id)
+            if user:
+                return user.to_dict(), 200
+            return {'error': 'User not found'}, 404
+        users = User.query.all()
+        return [user.to_dict() for user in users], 200
 
-# Views go here!
+    def post(self):
+        data = request.get_json()
+        new_user = User(
+            name=data['name'],
+            email=data['email'],
+            password_hash=data['password_hash'],
+            age=data['age'],
+            gender=data['gender'],
+            phone_number=data['phone_number']
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user.to_dict(), 201
 
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
+    def put(self, user_id):
+        data = request.get_json()
+        user = User.query.get(user_id)
+        if user:
+            user.name = data['name']
+            user.email = data['email']
+            user.password_hash = data['password_hash']
+            user.age = data['age']
+            user.gender = data['gender']
+            user.phone_number = data['phone_number']
+            db.session.commit()
+            return user.to_dict(), 200
+        return {'error': 'User not found'}, 404
 
+    def delete(self, user_id):
+        user = User.query.get(user_id)
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            return {}, 204
+        return {'error': 'User not found'}, 404
 
-if __name__ == '__main__':
+class DoctorResource(Resource):
+    def get(self, doctor_id=None):
+        if doctor_id:
+            doctor = Doctor.query.get(doctor_id)
+            if doctor:
+                return doctor.to_dict(), 200
+            return {'error': 'Doctor not found'}, 404
+        doctors = Doctor.query.all()
+        return [doctor.to_dict() for doctor in doctors], 200
+
+    def post(self):
+        data = request.get_json()
+        new_doctor = Doctor(
+            name=data['name'],
+            specialty=data['specialty'],
+            experience_years=data['experience_years'],
+            availability=data['availability']
+        )
+        db.session.add(new_doctor)
+        db.session.commit()
+        return new_doctor.to_dict(), 201
+
+    def put(self, doctor_id):
+        data = request.get_json()
+        doctor = Doctor.query.get(doctor_id)
+        if doctor:
+            doctor.name = data['name']
+            doctor.specialty = data['specialty']
+            doctor.experience_years = data['experience_years']
+            doctor.availability = data['availability']
+            db.session.commit()
+            return doctor.to_dict(), 200
+        return {'error': 'Doctor not found'}, 404
+
+    def delete(self, doctor_id):
+        doctor = Doctor.query.get(doctor_id)
+        if doctor:
+            db.session.delete(doctor)
+            db.session.commit()
+            return {}, 204
+        return {'error': 'Doctor not found'}, 404
+
+class AppointmentResource(Resource):
+    def get(self, appointment_id=None):
+        if appointment_id:
+            appointment = Appointment.query.get(appointment_id)
+            if appointment:
+                return appointment.to_dict(), 200
+            return {'error': 'Appointment not found'}, 404
+        appointments = Appointment.query.all()
+        return [appointment.to_dict() for appointment in appointments], 200
+
+    def post(self):
+        data = request.get_json()
+        new_appointment = Appointment(
+            user_id=data['user_id'],
+            doctor_id=data['doctor_id'],
+            date=data['date'],
+            time=data['time'],
+            status=data['status']
+        )
+        db.session.add(new_appointment)
+        db.session.commit()
+        return new_appointment.to_dict(), 201
+
+    def put(self, appointment_id):
+        data = request.get_json()
+        appointment = Appointment.query.get(appointment_id)
+        if appointment:
+            appointment.user_id = data['user_id']
+            appointment.doctor_id = data['doctor_id']
+            appointment.date = data['date']
+            appointment.time = data['time']
+            appointment.status = data['status']
+            db.session.commit()
+            return appointment.to_dict(), 200
+        return {'error': 'Appointment not found'}, 404
+
+    def delete(self, appointment_id):
+        appointment = Appointment.query.get(appointment_id)
+        if appointment:
+            db.session.delete(appointment)
+            db.session.commit()
+            return {}, 204
+        return {'error': 'Appointment not found'}, 404
+
+class PrescriptionResource(Resource):
+    def get(self, prescription_id=None):
+        if prescription_id:
+            prescription = Prescription.query.get(prescription_id)
+            if prescription:
+                return prescription.to_dict(), 200
+            return {'error': 'Prescription not found'}, 404
+        prescriptions = Prescription.query.all()
+        return [prescription.to_dict() for prescription in prescriptions], 200
+
+    def post(self):
+        data = request.get_json()
+        new_prescription = Prescription(
+            appointment_id=data['appointment_id'],
+            medicine=data['medicine'],
+            dosage=data['dosage'],
+            instructions=data['instructions']
+        )
+        db.session.add(new_prescription)
+        db.session.commit()
+        return new_prescription.to_dict(), 201
+
+    def put(self, prescription_id):
+        data = request.get_json()
+        prescription = Prescription.query.get(prescription_id)
+        if prescription:
+            prescription.appointment_id = data['appointment_id']
+            prescription.medicine = data['medicine']
+            prescription.dosage = data['dosage']
+            prescription.instructions = data['instructions']
+            db.session.commit()
+            return prescription.to_dict(), 200
+        return {'error': 'Prescription not found'}, 404
+
+    def delete(self, prescription_id):
+        prescription = Prescription.query.get(prescription_id)
+        if prescription:
+            db.session.delete(prescription)
+            db.session.commit()
+            return {}, 204
+        return {'error': 'Prescription not found'}, 404
+
+# Register resources with the API
+api.add_resource(UserResource, '/users', '/users/<int:user_id>')
+api.add_resource(DoctorResource, '/doctors', '/doctors/<int:doctor_id>')
+api.add_resource(AppointmentResource, '/appointments', '/appointments/<int:appointment_id>')
+api.add_resource(PrescriptionResource, '/prescriptions', '/prescriptions/<int:prescription_id>')
+
+if __name__ == "__main__":
     app.run(port=5555, debug=True)
-
