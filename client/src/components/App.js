@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Home from "./Home";
 import CardContainer from './CardContainer';
 import SmallCardContainer from "./SmallCardContainer";
+import Footer from "./Footer";
 
 function App() {
   return <div>
@@ -13,6 +14,7 @@ function App() {
   
   <CardContainer />
   <SmallCardContainer />
+  <Footer />
  </div>
 }
 
