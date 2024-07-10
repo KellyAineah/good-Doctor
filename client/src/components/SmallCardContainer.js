@@ -20,7 +20,7 @@ const SmallCardContainer = () => {
     return (
       <div>
         <p className="paragraph">
-        Compliant and Trusted
+        We are Compliant & Trusted
         </p>
         <div className='small-card-container'>
           {smallCards.map((card, index) => (

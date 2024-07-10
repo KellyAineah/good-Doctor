@@ -1,6 +1,8 @@
-import React from 'react'
-import Carousel from './Carousel'
-import './Home.css'
+import React from 'react';
+import Carousel from './Carousel';
+import CardContainer from './CardContainer';
+import SmallCardContainer from "./SmallCardContainer";
+import './Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
 import './HeartbeatIcon.css';
@@ -9,12 +11,13 @@ function Home() {
   return (
     <div>
       <p className='paragraph'>
-      <span>Your Health, Our Priority <FontAwesomeIcon icon={faHeartbeat} className='heartbeat-icon' /></span>
+        <span>Your Health, Our Priority <FontAwesomeIcon icon={faHeartbeat} className='heartbeat-icon' /></span>
       </p>
       <Carousel />
-      
+      <CardContainer />
+      <SmallCardContainer />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
