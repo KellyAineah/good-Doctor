@@ -5,7 +5,8 @@ import Home from "./Home";
 import Footer from "./Footer";
 import DoctorProfile from "./DoctorProfile"; 
 import UserProfile from "./UserProfile";     
-import Login from "./Login";                 
+import Login from "./Login"; 
+import SignUp from "./SignUp.js";                
 import './App.css';
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/doctor-profile" component={DoctorProfile} />
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
       </Switch>
 
       </div>
