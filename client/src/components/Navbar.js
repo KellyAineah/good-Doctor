@@ -1,0 +1,38 @@
+import React from 'react';
+import './Navbar.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHospital } from '@fortawesome/free-solid-svg-icons';
+function Navbar() {
+  return (
+    <nav className='nav'>
+      <div className='title'>
+        <span className='good'> <FontAwesomeIcon icon={faHospital} style={{ marginRight: '10px', marginLeft: '50px' }}  />
+          <span className='g'>g</span>
+          <span className='o1'>o</span>
+          <span className='o2'>o</span>
+          <span className='d'>d</span>
+        </span>
+        <span className='doctor'>Doctor  
+  
+  
+          </span>
+      </div>
+      <ul className='nav-list'>
+        <li className='active'>
+          <a href='/home'>Home</a>
+        </li>
+        <li>
+          <a href='/doctor-profile'>Doctor's Profile</a>
+        </li>
+        <li>
+          <a href='/user-profile'>User Profile</a>
+        </li>
+        <li>
+          <a href='/login'>Login</a>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+export default Navbar;
