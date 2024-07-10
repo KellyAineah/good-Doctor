@@ -77,4 +77,4 @@ if __name__ == '__main__':
 
         # Commit the changes to the database
         db.session.commit()
-        print("Seeding complete!")
+        
