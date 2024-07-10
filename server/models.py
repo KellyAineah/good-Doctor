@@ -1,5 +1,5 @@
-from sqlalchemy_serializer import SerializerMixin # type: ignore # Provides serialization capabilities for SQLAlchemy models
-from sqlalchemy.ext.associationproxy import association_proxy # type: ignore # Enables association proxy functionality
+from sqlalchemy_serializer import SerializerMixin # Provides serialization capabilities for SQLAlchemy models
+from sqlalchemy.ext.associationproxy import association_proxy # Enables association proxy functionality
 
 from config import db # Imports the database configuration from a separate config file
 

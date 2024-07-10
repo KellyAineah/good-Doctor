@@ -1,0 +1,17 @@
+@keyframes heartbeat {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .heartbeat-icon {
+    margin-right: 10px; 
+    animation: heartbeat 1s infinite; 
+  }
+  

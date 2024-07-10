@@ -2,6 +2,8 @@ import React from 'react';
 import './Navbar.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHospital } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav className='nav'>
@@ -19,7 +21,7 @@ function Navbar() {
       </div>
       <ul className='nav-list'>
         <li className='active'>
-          <a href='/home'>Home</a>
+          <a href="/">Home</a>
         </li>
         <li>
           <a href='/doctor-profile'>Doctor's Profile</a>
