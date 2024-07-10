@@ -35,4 +35,9 @@
   .small-card:hover {
     transform: scale(1.05);
   }
+  .small-card h3 {
+    margin-top: 1px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6); /* Faded font color */
+  }
   

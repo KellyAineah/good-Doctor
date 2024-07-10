@@ -26,7 +26,7 @@ const SmallCardContainer = () => {
           {smallCards.map((card, index) => (
             <div key={index} className='small-card'>
               <img src={card.imgSrc} alt={card.title} />
-              <h3>{card.title}</h3>
+              <h3 className='faded-title'>{card.title}</h3>
             </div>
           ))}
         </div>
