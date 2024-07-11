@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Navbar.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHospital } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from "react-router-dom";
+import { AuthContext } from './AuthContext';
 
 function Navbar() {
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    fetch('/logout', {
+      method: 'DELETE',
+      credentials: 'include',  // Include cookies in requests
+    })
+    .then(response => {
+      if (response.status === 204) {
+        logout();
+      }
+    });
+  };
+
   return (
     <nav className='nav'>
       <div className='title'>
@@ -19,20 +34,33 @@ function Navbar() {
       </div>
       <ul className='nav-list'>
         <li>
-          <NavLink to="/" activeClassName='active'>Home</NavLink>
+          <NavLink to="/" exact activeClassName='active'>Home</NavLink>
         </li>
-        <li>
-          <NavLink to="/doctor-profile" activeClassName='active'>Doctor's Profile</NavLink>
-        </li>
-        <li>
-          <NavLink to="/user-profile" activeClassName='active'>User Profile</NavLink>
-        </li>
-        <li>
-          <NavLink to="/login" activeClassName='active'>Login</NavLink>
-        </li>
-        <li>
-          <NavLink to="/signup" activeClassName='active'>SignUp</NavLink>
-        </li>
+        {user ? (
+          <>
+            <li>
+              <NavLink to="/doctor-profile" activeClassName='active'>Doctor's Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to="/user-profile" activeClassName='active'>User Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to="/appointment" activeClassName='active'>Appointments</NavLink>
+            </li>
+            <li>
+              <button onClick={handleLogout} className="logout-button">Logout</button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <NavLink to="/login" activeClassName='active'>Login</NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup" activeClassName='active'>SignUp</NavLink>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

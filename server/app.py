@@ -1,22 +1,68 @@
-#!/usr/bin/env python3
+from datetime import datetime
 import os
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, session, jsonify
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from config import db
 from models import User, Doctor, Appointment, Prescription
 
 # Setup Flask app
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'your_secret_key'  
 
 db.init_app(app)
 migrate = Migrate(app, db)
 api = Api(app)
 
-# Define Resources and their routes
 
+class Signup(Resource):
+    def post(self):
+        data = request.get_json()
+        new_user = User(
+            name=data['name'],
+            email=data['email'],
+            age=data['age'],
+            gender=data['gender'],
+            phone_number=data['phone_number']
+        )
+        new_user.password = data['password']
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user.to_dict(), 201
+
+class Login(Resource):
+    def post(self):
+        data = request.get_json()
+        user = User.query.filter_by(email=data['email']).first()
+        if user and user.verify_password(data['password']):
+            session['user_id'] = user.id
+            return user.to_dict(), 200
+        return {'error': 'Invalid credentials'}, 401
+
+class Logout(Resource):
+    def delete(self):
+        session.pop('user_id', None)
+        return {}, 204
+
+class CheckSession(Resource):
+    def get(self):
+        user_id = session.get('user_id')
+        if user_id:
+            user = User.query.get(user_id)
+            if user:
+                return user.to_dict(), 200
+        return {}, 204
+
+class ClearSession(Resource):
+    def delete(self):
+        session.clear()
+        return {}, 204
+
+# Define other resources as needed
 class UserResource(Resource):
     def get(self, user_id=None):
         if user_id:
@@ -27,41 +73,13 @@ class UserResource(Resource):
         users = User.query.all()
         return [user.to_dict() for user in users], 200
 
-    def post(self):
-        data = request.get_json()
-        new_user = User(
-            name=data['name'],
-            email=data['email'],
-            password_hash=data['password_hash'],
-            age=data['age'],
-            gender=data['gender'],
-            phone_number=data['phone_number']
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        return new_user.to_dict(), 201
-
-    def put(self, user_id):
-        data = request.get_json()
-        user = User.query.get(user_id)
-        if user:
-            user.name = data['name']
-            user.email = data['email']
-            user.password_hash = data['password_hash']
-            user.age = data['age']
-            user.gender = data['gender']
-            user.phone_number = data['phone_number']
-            db.session.commit()
-            return user.to_dict(), 200
-        return {'error': 'User not found'}, 404
-
-    def delete(self, user_id):
-        user = User.query.get(user_id)
-        if user:
-            db.session.delete(user)
-            db.session.commit()
-            return {}, 204
-        return {'error': 'User not found'}, 404
+# Register resources with the API
+api.add_resource(Signup, '/signup')
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
+api.add_resource(CheckSession, '/check_session')
+api.add_resource(ClearSession, '/clear')
+api.add_resource(UserResource, '/users', '/users/<int:user_id>')
 
 class DoctorResource(Resource):
     def get(self, doctor_id=None):
@@ -105,6 +123,8 @@ class DoctorResource(Resource):
             return {}, 204
         return {'error': 'Doctor not found'}, 404
 
+api.add_resource(DoctorResource, '/doctors', '/doctors/<int:doctor_id>')
+
 class AppointmentResource(Resource):
     def get(self, appointment_id=None):
         if appointment_id:
@@ -116,30 +136,41 @@ class AppointmentResource(Resource):
         return [appointment.to_dict() for appointment in appointments], 200
 
     def post(self):
-        data = request.get_json()
-        new_appointment = Appointment(
-            user_id=data['user_id'],
-            doctor_id=data['doctor_id'],
-            date=data['date'],
-            time=data['time'],
-            status=data['status']
-        )
-        db.session.add(new_appointment)
-        db.session.commit()
-        return new_appointment.to_dict(), 201
+        try:
+            data = request.get_json()
+            print(f"Received data: {data}")  # Debug log
+
+            new_appointment = Appointment(
+                user_id=data['user_id'],
+                doctor_id=data['doctor_id'],
+                date=datetime.strptime(data['date'], '%Y-%m-%d').date(),  
+                time=datetime.strptime(data['time'], '%H:%M').time(),    
+                status=data['status']
+            )
+
+            db.session.add(new_appointment)
+            db.session.commit()
+            return new_appointment.to_dict(), 201
+        except Exception as e:
+            print(f"Error: {e}")  
+            return {'error': 'Failed to create appointment', 'message': str(e)}, 400
 
     def put(self, appointment_id):
-        data = request.get_json()
-        appointment = Appointment.query.get(appointment_id)
-        if appointment:
-            appointment.user_id = data['user_id']
-            appointment.doctor_id = data['doctor_id']
-            appointment.date = data['date']
-            appointment.time = data['time']
-            appointment.status = data['status']
-            db.session.commit()
-            return appointment.to_dict(), 200
-        return {'error': 'Appointment not found'}, 404
+        try:
+            data = request.get_json()
+            appointment = Appointment.query.get(appointment_id)
+            if appointment:
+                appointment.user_id = data['user_id']
+                appointment.doctor_id = data['doctor_id']
+                appointment.date = datetime.strptime(data['date'], '%Y-%m-%d').date()  
+                appointment.time = datetime.strptime(data['time'], '%H:%M').time()    
+                appointment.status = data['status']
+                db.session.commit()
+                return appointment.to_dict(), 200
+            return {'error': 'Appointment not found'}, 404
+        except Exception as e:
+            print(f"Error: {e}")  
+            return {'error': 'Failed to update appointment', 'message': str(e)}, 400
 
     def delete(self, appointment_id):
         appointment = Appointment.query.get(appointment_id)
@@ -148,6 +179,9 @@ class AppointmentResource(Resource):
             db.session.commit()
             return {}, 204
         return {'error': 'Appointment not found'}, 404
+
+
+api.add_resource(AppointmentResource, '/appointments', '/appointments/<int:appointment_id>')
 
 class PrescriptionResource(Resource):
     def get(self, prescription_id=None):
@@ -191,11 +225,7 @@ class PrescriptionResource(Resource):
             return {}, 204
         return {'error': 'Prescription not found'}, 404
 
-# Register resources with the API
-api.add_resource(UserResource, '/users', '/users/<int:user_id>')
-api.add_resource(DoctorResource, '/doctors', '/doctors/<int:doctor_id>')
-api.add_resource(AppointmentResource, '/appointments', '/appointments/<int:appointment_id>')
 api.add_resource(PrescriptionResource, '/prescriptions', '/prescriptions/<int:prescription_id>')
 
-if __name__ == "__main__":
-    app.run(port=5555, debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

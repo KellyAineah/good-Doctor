@@ -2,12 +2,20 @@ import React from 'react';
 import Carousel from './Carousel';
 import CardContainer from './CardContainer';
 import SmallCardContainer from "./SmallCardContainer";
+import { useHistory } from 'react-router-dom';
 import './Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
 import './HeartbeatIcon.css';
+//import './LoginButton.css'; 
 
 function Home() {
+  const history = useHistory();
+
+  const handleLoginClick = () => {
+    history.push('/login');
+  };
+
   return (
     <div>
       <p className='paragraph'>
@@ -16,6 +24,9 @@ function Home() {
       <Carousel />
       <CardContainer />
       <SmallCardContainer />
+      <div className='button-container'>
+        <button className='login-button' onClick={handleLoginClick}>click here for more services</button>
+      </div>
     </div>
   );
 }

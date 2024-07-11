@@ -1,0 +1,42 @@
+.user-profile {
+    padding: 20px;
+  }
+  
+  .user-details, .appointment-history {
+    margin-bottom: 20px;
+  }
+  
+  .user-details h2, .appointment-history h2 {
+    margin-bottom: 10px;
+  }
+  
+  .user-details p, .appointment p, .prescriptions p {
+    margin: 5px 0;
+  }
+  
+  .appointment {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .prescriptions {
+    margin-top: 10px;
+  }
+  
+  .prescription {
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-top: 5px;
+  }
+  
+  @media (max-width: 600px) {
+    .user-profile {
+      padding: 10px;
+    }
+  
+    .appointment, .prescription {
+      padding: 5px;
+    }
+  }
+  

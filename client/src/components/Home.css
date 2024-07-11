@@ -10,4 +10,32 @@
     border-radius: 5px; 
     font-family: 'Arial', sans-serif; 
   }
+  .button-container {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .login-button {
+    background-color: #050b1d;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .login-button:hover {
+    background-color: #526a85;
+    transform: translateY(-2px);
+  }
+  
+  .login-button:active {
+    background-color: #e14a20;
+    transform: translateY(2px);
+  }
+
   

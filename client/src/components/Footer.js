@@ -21,9 +21,10 @@ function Footer() {
             <h4>Quick Links</h4>
             <ul className='list-unstyled'>
               <li><a href="/">Home</a></li>
-              <li><a href="/doctors">Doctors</a></li>
-              <li><a href="/appointments">Appointments</a></li>
               <li><a href="/login">Login</a></li>
+              <li><a href="/signup">SignUp</a></li>
+              
+              
             </ul>
           </div>
           <div className='footer-col'>

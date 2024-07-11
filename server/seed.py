@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
-# Standard library imports
+
 from datetime import datetime
 
 # Local imports
 from app import app, db
 from models import User, Doctor, Appointment, Prescription
-
 
 with app.app_context():
     # Drop existing tables
@@ -21,19 +20,20 @@ with app.app_context():
     user1 = User(
         name='Alice Johnson',
         email='alice@example.com',
-        password_hash='password1',
         age=29,
         gender='Female',
         phone_number='555-1234'
     )
+    user1.password = 'password1'
+
     user2 = User(
         name='Bob Smith',
         email='bob@example.com',
-        password_hash='password2',
         age=45,
         gender='Male',
         phone_number='555-5678'
     )
+    user2.password = 'password2'
 
     # Create some doctors
     doctor1 = Doctor(
