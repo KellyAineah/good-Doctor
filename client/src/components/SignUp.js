@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './Signup.css'; // Ensure to import the CSS file
 
 function Signup() {
   const [name, setName] = useState('');
@@ -33,14 +34,15 @@ function Signup() {
   };
 
   return (
-    <form onSubmit={handleSignup}>
-      <h2>Signup</h2>
+    <form onSubmit={handleSignup} className="signup-form">
+      <h2 className="signup-title">Signup</h2>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
         required
+        className="signup-input"
       />
       <input
         type="email"
@@ -48,6 +50,7 @@ function Signup() {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
         required
+        className="signup-input"
       />
       <input
         type="password"
@@ -55,6 +58,7 @@ function Signup() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
         required
+        className="signup-input"
       />
       <input
         type="number"
@@ -62,6 +66,7 @@ function Signup() {
         onChange={(e) => setAge(e.target.value)}
         placeholder="Age"
         required
+        className="signup-input"
       />
       <input
         type="text"
@@ -69,6 +74,7 @@ function Signup() {
         onChange={(e) => setGender(e.target.value)}
         placeholder="Gender"
         required
+        className="signup-input"
       />
       <input
         type="text"
@@ -76,8 +82,9 @@ function Signup() {
         onChange={(e) => setPhoneNumber(e.target.value)}
         placeholder="Phone Number"
         required
+        className="signup-input"
       />
-      <button type="submit">Signup</button>
+      <button type="submit" className="signup-button">Signup</button>
     </form>
   );
 }

@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     fetch('/check_session', {
-      credentials: 'include',  // Include cookies in requests
+      credentials: 'include',  
     })
     .then(response => {
       if (response.status === 200) {

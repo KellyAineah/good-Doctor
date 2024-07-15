@@ -1,42 +1,166 @@
 .user-profile {
-    padding: 20px;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 220px;
+  margin-top: 130px;
+}
+
+.user-profile h1 {
+  text-align: center;
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.user-details {
+  margin-bottom: 30px;
+}
+
+.user-details h2 {
+  color: #444;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.user-details p {
+  font-size: 1em;
+  color: #555;
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+.user-details strong {
+  color: #222;
+}
+
+.appointment-history {
+  margin-bottom: 30px;
+}
+
+.appointment-history h2 {
+  color: #444;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.appointment {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appointment h3 {
+  color: #333;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.appointment p {
+  font-size: 1em;
+  color: #555;
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+.appointment strong {
+  color: #222;
+}
+
+.prescriptions {
+  margin-top: 10px;
+}
+
+.prescriptions h4 {
+  color: #444;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.prescription {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.prescription p {
+  font-size: 1em;
+  color: #555;
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+.prescription strong {
+  color: #222;
+}
+.edit-button {
+  background-color: #d9534f;
   
-  .user-details, .appointment-history {
-    margin-bottom: 20px;
-  }
-  
-  .user-details h2, .appointment-history h2 {
-    margin-bottom: 10px;
-  }
-  
-  .user-details p, .appointment p, .prescriptions p {
-    margin: 5px 0;
-  }
-  
-  .appointment {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .prescriptions {
-    margin-top: 10px;
-  }
-  
-  .prescription {
-    border: 1px solid #ddd;
-    padding: 5px;
-    margin-top: 5px;
-  }
-  
-  @media (max-width: 600px) {
-    .user-profile {
-      padding: 10px;
-    }
-  
-    .appointment, .prescription {
-      padding: 5px;
-    }
-  }
-  
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.edit-button:hover {
+  background-color: #c9302c;
+  transform: translateY(-2px);
+}
+
+.edit-button:active {
+  background-color: #003f7f;
+  transform: translateY(2px);
+}
+
+.save-button {
+  background-color: #0c5f1e;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 50px;
+}
+
+.save-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.save-button:active {
+  background-color: #1e7e34;
+  transform: translateY(2px);
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+.cancel-button:active {
+  background-color: #bd2130;
+  transform: translateY(2px);
+}

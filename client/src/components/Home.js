@@ -7,7 +7,7 @@ import './Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
 import './HeartbeatIcon.css';
-//import './LoginButton.css'; 
+ 
 
 function Home() {
   const history = useHistory();
@@ -25,7 +25,7 @@ function Home() {
       <CardContainer />
       <SmallCardContainer />
       <div className='button-container'>
-        <button className='login-button' onClick={handleLoginClick}>click here for more services</button>
+        <button className='logn-button' onClick={handleLoginClick}>click here for more services</button>
       </div>
     </div>
   );

@@ -1,0 +1,307 @@
+/* DoctorProfile.css */
+
+/* Doctor Profile Container */
+.doctor-profile-container {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 30px auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin-top: 60px;
+  margin-bottom: 500px;
+}
+
+/* Title */
+.doctor-profile-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  background-color: #17a2b8;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  background-color: #138496;
+  transform: translateY(-2px);
+}
+
+/* Search Bar */
+.search-bar {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-bar input[type="text"] {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensure padding and border don't increase width */
+}
+
+.search-bar button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Doctor List */
+.doctor-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.doctor-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.doctor-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.doctor-icon {
+  font-size: 50px;
+  color: hwb(185 5% 0%);
+  margin-bottom: 10px;
+}
+
+.doctor-info {
+  margin-top: 15px;
+}
+
+.doctor-info h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.doctor-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.doctor-card button {
+  background-color: #138496;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.doctor-card button:hover {
+  background-color: #ac2925;
+  transform: translateY(-2px);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 80%;
+}
+
+.modal-content .doctor-info {
+  margin-bottom: 20px;
+}
+
+.appointment-scheduler {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.appointment-scheduler h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.appointment-scheduler form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.appointment-scheduler form label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.appointment-scheduler form input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.appointment-scheduler form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.appointment-scheduler form button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Add Doctor Form */
+.add-doctor-button {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.toggle-form-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-form-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.add-doctor-form {
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.add-doctor-form label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.add-doctor-form input[type="text"],
+.add-doctor-form input[type="number"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.add-doctor-form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-doctor-form button[type="submit"]:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Close Modal Button */
+.close-modal {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.close-modal:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}

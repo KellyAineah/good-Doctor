@@ -1,16 +1,20 @@
+// DoctorLogin.js
+
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 import './Login.css'; 
 
-function Login({ setAuth }) {
+function DoctorLogin({ setAuth }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
     
-    fetch('/login', {
+    fetch('/doctor_login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -20,6 +24,7 @@ function Login({ setAuth }) {
     .then(({ status, data }) => {
       if (status === 200) {
         localStorage.setItem('token', data.access_token); 
+        login(data);
         setAuth(true);
         history.push('/');
       } else {
@@ -33,15 +38,14 @@ function Login({ setAuth }) {
   };
 
   return (
-    <form onSubmit={handleLogin} className="login-form">
-      <h2 className="login-title">Login</h2>
+    <form onSubmit={handleLogin}>
+      <h2>Doctor Login</h2>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
         required
-        className="login-input"
       />
       <input
         type="password"
@@ -49,11 +53,10 @@ function Login({ setAuth }) {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
         required
-        className="login-input"
       />
-      <button type="submit" className="login-button">Login</button>
+      <button type="submit">Login</button>
     </form>
   );
 }
 
-export default Login;
+export default DoctorLogin;

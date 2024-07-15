@@ -1,40 +1,153 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
+import './User.css';
 
 function UserProfile() {
-  const [user, setUser] = useState({});
+  const { user } = useContext(AuthContext);
+  const [userData, setUserData] = useState({});
   const [appointments, setAppointments] = useState([]);
-  const userId = 1; // Assuming we get the logged-in user's ID somehow
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    age: '',
+    gender: '',
+    phone_number: ''
+  });
 
   useEffect(() => {
-    // Fetch user details
-    fetch(`/users/${userId}`)
+    if (user) {
+      fetch(`/users/${user.id}`, {
+        credentials: 'include',
+      })
       .then(response => response.json())
-      .then(data => setUser(data))
+      .then(data => {
+        setUserData(data);
+        setFormData(data);
+      })
       .catch(error => console.error("Error fetching user details:", error));
 
-    // Fetch user's appointments
-    fetch(`/appointments/user/${userId}`)
-      .then(response => response.json())
-      .then(data => setAppointments(data))
-      .catch(error => console.error("Error fetching appointments:", error));
-  }, [userId]);
+    }
+  }, [user]);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`/users/${user.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      setUserData(data);
+      setIsEditing(false);
+    })
+    .catch(error => console.error("Error updating user details:", error));
+  };
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="user-profile">
       <h1>User Profile</h1>
-      <div className="user-details">
-        <h2>Details</h2>
-        <p><strong>Name:</strong> {user.name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Age:</strong> {user.age}</p>
-        <p><strong>Gender:</strong> {user.gender}</p>
-        <p><strong>Phone Number:</strong> {user.phone_number}</p>
-      </div>
+      {isEditing ? (
+        <form onSubmit={handleSubmit} className="edit-form">
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="age">Age:</label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="gender">Gender:</label>
+            <input
+              type="text"
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone_number">Phone Number:</label>
+            <input
+              type="text"
+              id="phone_number"
+              name="phone_number"
+              value={formData.phone_number}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className="save-button">Save Changes</button>
+          <button type="button" onClick={() => setIsEditing(false)} className="cancel-button">Cancel</button>
+        </form>
+      ) : (
+        <div className="user-details">
+          <h2>Details</h2>
+          <p><strong>Name:</strong> {userData.name}</p>
+          <p><strong>Email:</strong> {userData.email}</p>
+          <p><strong>Age:</strong> {userData.age}</p>
+          <p><strong>Gender:</strong> {userData.gender}</p>
+          <p><strong>Phone Number:</strong> {userData.phone_number}</p>
+          <button 
+            onClick={handleEditClick}
+            className="edit-button"
+          >
+            Edit Profile
+          </button>
+        </div>
+      )}
       <div className="appointment-history">
         <h2>Appointment History</h2>
         {appointments.map(appointment => (
           <div key={appointment.id} className="appointment">
-            <h3>Appointment with {appointment.doctor.name}</h3>
+            <h3>Appointment with Dr. {appointment.doctor.name}</h3>
             <p><strong>Date:</strong> {appointment.date}</p>
             <p><strong>Time:</strong> {appointment.time}</p>
             <p><strong>Status:</strong> {appointment.status}</p>
