@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/good-Doctor/static/css/main.362146ec.css",
+    "main.js": "/good-Doctor/static/js/main.acca881d.js",
+    "static/media/med3.png": "/good-Doctor/static/media/med3.496d287fdae54c11e84d.png",
+    "static/media/pic3.jpeg": "/good-Doctor/static/media/pic3.f476c43cb37c145560e5.jpeg",
+    "static/media/pic2.jpeg": "/good-Doctor/static/media/pic2.dbb64f13ea8f4b45d11e.jpeg",
+    "static/media/med12.jpg": "/good-Doctor/static/media/med12.352927feafa0270c9b5f.jpg",
+    "static/media/pic1.webp": "/good-Doctor/static/media/pic1.be9b50d7455f22232c44.webp",
+    "static/media/med13.jpg": "/good-Doctor/static/media/med13.55c12ab37ed9bd51bd32.jpg",
+    "static/media/med11.png": "/good-Doctor/static/media/med11.210d98509fddd266d459.png",
+    "static/media/med1.jpeg": "/good-Doctor/static/media/med1.f4b15ec0b9b0dcf8bab1.jpeg",
+    "index.html": "/good-Doctor/index.html",
+    "main.362146ec.css.map": "/good-Doctor/static/css/main.362146ec.css.map",
+    "main.acca881d.js.map": "/good-Doctor/static/js/main.acca881d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.362146ec.css",
+    "static/js/main.acca881d.js"
+  ]
+}
